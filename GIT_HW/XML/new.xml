@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aboutMyself>
+	<firstName> Valeria </firstName>
+	<lastName> Tolmacheva </Tolmacheva>
+	<age> 33 </age>
+	<quantityOfPets> 0 </quantityOfPets>
+	<expectedSalary> 1000 USD </expectedSalary>
+</aboutMyself>
