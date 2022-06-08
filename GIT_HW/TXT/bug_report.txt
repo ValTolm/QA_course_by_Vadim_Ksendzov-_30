@@ -1,0 +1,13 @@
+id: 1 
+title: Error message is displayed when 6 spaces password is used to sign in 
+enviroment: Chrome browser Version 101.0.4951.67 (Official Build) (64-bit) 
+Source URL: https://qwerty.com
+Steps to reproduce:
+1. Open login page: https://qwerty.com
+2. Click "Create account"
+3. Fill in “Your full name”, “Email” and “Password”, for password use 6 spaces “      ” and click "create account"
+4. Sign out
+5. Fill in email and password from the point 3 and click "Sign in" button 
+Expected result: Password with spaces shouldn't be accepted during registration 
+Actual result: Password with 6 spaces was accepted, but not possible to sign in with it
+Severity: Minor 
