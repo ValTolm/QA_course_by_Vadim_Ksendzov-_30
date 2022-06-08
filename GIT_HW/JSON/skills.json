@@ -1,0 +1,12 @@
+{
+  "skills": [
+	{
+		"type" : "hard skills",
+		"name" : "bash"
+	},
+	{
+		"type" : "hard skills",
+		"name" : "git"
+	}
+	]
+}
