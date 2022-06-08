@@ -1,0 +1,1 @@
+first name - Valeria, last name - Tolmacheva, age - 33, quantity of pets" : 0,  expected salary - 1000 USD
