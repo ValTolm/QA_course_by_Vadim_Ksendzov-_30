@@ -25,25 +25,21 @@ raithToTheNthPower(-3);
 // :):):):)
 // :):):):):)
 
-function printSmile(smile) {
-    for(let i = 1; i <= 5; i++) {
-        console.log(smile.repeat(i));
-    }
+for(let i = 1; i <= 5; i++) {
+    console.log(":)".repeat(i));
 }
-
-printSmile(":)")
 
 // 2*. Преобразовать 2 задачу в функцию, принимающую на вход строку, которая и будет выводиться в консоль 
 //(как в условии смайлик), а также количество строк для вывода 
 // e.g. function printSmile(stroka, numberOfRows)
 
-function printSmile2(smile, numberOfRows){
+function printSmile(smile, numberOfRows){
     for(let i = 1; i<=numberOfRows; i++){
      
         console.log(smile.repeat(i));
     }
 }
-printSmile2(":)", 5)
+printSmile(":)", 5)
 
 
 // 3**.  Написать функцию, которая принимает на вход слово. Задача функции посчитать и вывести в консоль, 
