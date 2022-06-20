@@ -1,0 +1,92 @@
+HW_1. The first part
+Linux terminal (GitBash) commands
+
+1) Check full pathname of the current working directory 
+(Посмотреть где я) - 
+pwd
+2) Create a folder 
+(Создать папку) - 
+mkdir hw_1
+3) Open the folder 
+(Зайти в папку) - 
+cd hw_1/
+4) Create 3 folders 
+(Создать 3 папки) - 
+mkdir qa_folder_1 qa_folder_2 qa_folder_3
+5) Open any folder 
+(Зайти в любоую папку) - 
+cd qa_folder_1/
+6) Create 5 files (3 txt, 2 json) 
+(Создать 5 файлов (3 txt, 2 json)- 
+touch qa_1.txt qa_2.txt qa_3.txt qa_1.json qa_2.json
+7) Create 3 folders 
+(Создать 3 папки) - 
+mkdir qa_1_1 qa_1_2 qa_1_3
+8) Display content of the folder 
+(Вывести список содержимого папки) - 
+ls -la
+9) Open any txt file 
+(Открыть любой txt файл) - 
+vim qa_1.txt
+10) Add any text to the file 
+(написать туда что-нибудь, любой текст) - 
+i (INSERT mode is indicated in the bottom), 
+My first HW! +enter
+Second line +enter
+enter
+Line four +enter
+Last 5th line +enter
+11) Save and exit (сохранить и выйти) - 
+esc + :wq + enter
+12) Navigate up one directory level 
+(Выйти из папки на уровень выше) - 
+cd ..
+13) Move any 2 created earier files into another folder 
+(переместить любые 2 файла, которые вы создали, в любую другую папку) -
+mv qa_folder_1/qa_1.txt qa_folder_1/qa_1.json qa_folder_2
+14) Copy any 2 created earier files into another folder 
+(скопировать любые 2 файла, которые вы создали, в любую другую папку) -
+cp qa_folder_1/qa_2.txt qa_folder_1/qa_2.json qa_folder_2
+15) Find file by name (Найти файл по имени) -
+find -name qa_3.txt
+16) Check content in real time (using grep)
+просмотреть содержимое в реальном времени (команда grep) изучите как она работает.
+1) tail -f qa_1.txt | grep ""
+2) grep "" qa_1.txt (not real time)
+17) Display 2 first lines of the text file
+вывести несколько первых строк из текстового файла
+head -2 qa_1.txt
+18) Display 2 last lines of the text file
+вывести несколько последних строк из текстового файла
+tail -2 qa_1.txt
+19) 
+просмотреть содержимое длинного файла (команда less) изучите как она работает.
+less qa_1.txt
+20) Print date and time (вывести дату и время)
+1) date (output:Mon May 23 16:48:28 GST 2022)
+2) date +"%D %T" (output: 05/23/22 16:48:47)
+3) date +"%Y-%m-%d %T" (output: 2022-05-23 16:49:34)
+
+Задание *
+1) Отправить http запрос на сервер.
+curl http://162.55.220.72:5005/terminal-hw-request
+curl "http://162.55.220.72:5005/get_method?name=Val&age=32"
+2) Написать скрипт который выполнит автоматически пункты 3, 4, 5, 6, 7, 8, 13
+
+touch myscript
+
+cat >>myscript
+#!/bin/bash
+# This is a comment
+pwd
+whoami
+cd hw_1/
+mkdir qa_folder_11 qa_folder_21 qa_folder_31
+cd qa_folder_11/
+touch qa_11.txt qa_21.txt qa_31.txt qa_11.json qa_21.json
+mkdir qa_1_11 qa_1_21 qa_1_31
+ls -la
+mv qa_folder_11/qa_11.txt qa_folder_11/qa_11.json qa_folder_21
+
+chmod +x ./myscript
+./myscript
