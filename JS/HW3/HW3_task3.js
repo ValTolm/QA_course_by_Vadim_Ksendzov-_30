@@ -10,17 +10,17 @@ const enterprises = [
         {
           id: 2,
           name: "Отдел тестирования",
-          employees_count: 10,
+          employees_count: 112,
         },
         {
           id: 3,
           name: "Отдел маркетинга",
-          employees_count: 20,
+          employees_count: 12,
         },
         {
           id: 4,
           name: "Администрация",
-          employees_count: 15,
+          employees_count: 1120,
         },
       ]
     },
@@ -31,17 +31,17 @@ const enterprises = [
         {
           id: 6,
           name: "Отдел разработки",
-          employees_count: 50,
+          employees_count: 21,
         },
         {
           id: 7,
           name: "Отдел маркетинга",
-          employees_count: 20,
+          employees_count: 11,
         },
         {
           id: 8,
           name: "Отдел охраны труда",
-          employees_count: 5,
+          employees_count: 2,
         },
       ]
     },
@@ -52,7 +52,7 @@ const enterprises = [
         {
           id: 10,
           name: "Отдел аналитики",
-          employees_count: 0,
+          employees_count: 1,
         },
       ]
     }
@@ -72,61 +72,88 @@ const enterprises = [
 //   Предприятие 3 (нет сотрудников)
 //   - Отдел аналитики (нет сотрудников)
 
-// 1 вариант 
-let quantityOfEmployees = enterprises.map( (company) => console.log("Предприятие " + company.id  + 
-                    " (" + company.departments.map((dept) => ifQuantityOfEmployeesIsZero(dept)).reduce(function(a, b){return a+b}) + " сотрудников)" 
-                    + '\n' + company.departments.map( function (dept) {return "-" + dept.name + " (" + ifQuantityOfEmployeesIsZero(dept) + " сотрудников)" + '\n' }).join("")
-                    ))
+function getFormatedEmployeeLabel (dept, employeeCount, prefix ="") {
+    let result;
 
-// 2 вариант (вынести функции)
-function employeeCountByCompany (company) {
-    return company.departments.map( (dept) => ifQuantityOfEmployeesIsZero(dept)).reduce(function(a, b){return a+b})} ;
+    if (employeeCount == 0) {
+        result = '(нет сотрудников)';
+    } else {
+        const formattedEmployeeCount = `${employeeCount}` 
+        const lastDigital = +formattedEmployeeCount.at(-1)
+        const nextToLastDigital = +formattedEmployeeCount.at(-2)
+        const arr = [2,3,4]
 
-function employeeCountByDepartment (company) { 
-    return company.departments.map( function (dept) {return "-" + dept.name + " (" + ifQuantityOfEmployeesIsZero(dept) + " сотрудников)" + '\n' }).join("")};
-
-function ifQuantityOfEmployeesIsZero (dept){
-    if (dept.employees_count == 0){
-        return "нет"
+        if (
+            (arr.includes(lastDigital) && !nextToLastDigital ) ||
+            (arr.includes(lastDigital) && (nextToLastDigital != "1")) 
+        ) {
+            result = ` (${employeeCount} сотрудника)`
+        } else if ((lastDigital == "1") && (nextToLastDigital != "1")) {
+            result = ` (${employeeCount} сотрудник)`
+        } else {
+            result = ` (${employeeCount} сотрудников)`
+        }
     }
-    else{
-        return dept.employees_count
-    }
+    return prefix + dept.name + result;    
 }
-let quantityOfEmployees2 = enterprises.map( (company) => console.log("Предприятие " + company.id  + 
-                        " (" + employeeCountByCompany(company) + " сотрудников)" 
-                        + '\n' + employeeCountByDepartment(company)
-                        ));
 
+enterprises.map(department => {
+    console.log(getFormatedEmployeeLabel(
+        department,
+        department.departments.reduce((a, b) => a + b.employees_count, 0)
+    ))
+
+    department.departments.map(department =>
+        console.log(getFormatedEmployeeLabel(
+            department,
+            department.employees_count, 
+            "- "
+    ))
+    )
+})
                     
 //   2. Написать функцию, которая будет принимать 1 аргумент (id отдела или название отдела и возвращать название предприятия, к которому относится). 
 //   Пример:
 //   getEnterpriseName(4) // Предприятие 1
 //   getEnterpriseName("Отдел маркетинга") // Предприятие 2
 
-function getEnterpriseName ( departmentIdOrName ){
-    enterprises.map( function (company) { 
-        company.departments.map(function (value) { 
-            if (value.id == departmentIdOrName || value.name == departmentIdOrName) {
-                console.log(company.name)}
-        })
-    })
+function getEnterpriseName (departmentIdOrName) {
+    let enterpriseName =[] ;
+    enterprises.map( (company) => company.departments.forEach( function (value, i) {
+        if (value.id == departmentIdOrName || value.name == departmentIdOrName) {
+            enterpriseName.push(company.name)
+        }
+    } ) )
+    return enterpriseName;
 }
 
-getEnterpriseName(4);  //Предприятие 1
-getEnterpriseName("Отдел маркетинга") //Предприятие 1  Предприятие 2
+console.log ( getEnterpriseName(4) );  // Предприятие 1
+console.log ( getEnterpriseName("Отдел маркетинга") )// [ 'Предприятие 1', 'Предприятие 2' ]
 
 //   3. Написать функцию, которая будет добавлять предприятие. В качестве аргумента принимает название предприятия
 //   Пример:
 //   addEnterprise("Название нового предприятия")
 
-function addEnterprise(newEnterprise){
-    enterprises.push({name : newEnterprise})
-
+function findNextId(enterprises) {
+    let arrayOfIds = [];
+    enterprises.map( company => arrayOfIds.push(company.id));
+    enterprises.map( function (company) {
+        if (company.departments) {
+            company.departments.filter( function (department) {
+                arrayOfIds.push(department.id)
+            })
+        }
+    })
+    let nextId = Math.max(...arrayOfIds) + 1
+    return nextId;
 }
+
+function addEnterprise(newEnterprise){
+    enterprises.push({id : findNextId(enterprises), name : newEnterprise})
+}
+
 addEnterprise("Название нового предприятия")
 console.log(enterprises)
-
 
 //   4. Написать функцию, которая будет добавлять отдел в предприятие. В качестве аргумента принимает id предприятия, 
 // в которое будет добавлен отдел и название отдела.
@@ -136,7 +163,7 @@ console.log(enterprises)
 function addDepartment ( enterpriseId, newDepartmentName) {
     enterprises.map(function (enterprise) {
         if (enterprise.id == enterpriseId) {
-            enterprise.departments.push({name: newDepartmentName})
+            enterprise.departments.push({id : findNextId(enterprises), name : newDepartmentName})
         }
     } )
 
